@@ -125,6 +125,8 @@ public class SharedData {
     public static String PREF_KEY_VEGAS_BET_AMOUNT_OLD;
     public static String PREF_KEY_MENU_ORDER;
     public static String PREF_KEY_AUTO_START_NEW_GAME;
+    public static String PREF_KEY_VEGAS_MONEY;
+    public static String PREF_KEY_VEGAS_MONEY_ENABLED;
     public static String DEFAULT_CANFIELD_DRAW;
     public static String DEFAULT_KLONDIKE_DRAW;
     public static String DEFAULT_VEGAS_DRAW;
@@ -144,6 +146,7 @@ public class SharedData {
     public static String DEFAULT_VEGAS_NUMBER_OF_RECYCLES;
     public static String DEFAULT_WIN_SOUND;
     public static String DEFAULT_MOVEMENT_SPEED;
+    public static int DEFAULT_VEGAS_MONEY;
     public static int DEFAULT_CURRENT_GAME;
     public static int DEFAULT_CARD_BACKGROUND;
     public static int DEFAULT_CARD_BACKGROUND_COLOR;
@@ -166,6 +169,7 @@ public class SharedData {
     public static boolean DEFAULT_SINGLE_TAP_ENABLED;
     public static boolean DEFAULT_SOUND_ENABLED;
     public static boolean DEFAULT_AUTO_START_NEW_GAME;
+    public static boolean DEFAULT_VEGAS_MONEY_ENABLED;
 
     public static boolean DEFAULT_PYRAMID_LIMITED_RECYCLES;
     public static boolean DEFAULT_FORTYEIGHT_LIMITED_RECYCLES;
@@ -285,6 +289,9 @@ public class SharedData {
         PREF_KEY_MENU_ORDER = res.getString(R.string.pref_key_menu_order);
         PREF_KEY_VEGAS_BET_AMOUNT_OLD = PREF_KEY_VEGAS_BET_AMOUNT + OLD;
         PREF_KEY_AUTO_START_NEW_GAME = res.getString(R.string.pref_key_auto_start_new_game);
+        PREF_KEY_VEGAS_MONEY = res.getString(R.string.pref_key_vegas_money);
+        PREF_KEY_VEGAS_MONEY_ENABLED = res.getString(R.string.pref_key_vegas_money_enabled);
+
 
         DEFAULT_PYRAMID_DIFFICULTY = res.getStringArray(R.array.pref_pyramid_difficulty_values)[0];
         DEFAULT_LANGUAGE = res.getStringArray(R.array.pref_language_values)[0];
@@ -308,6 +315,7 @@ public class SharedData {
         DEFAULT_WON_AND_RELOADED = res.getBoolean(R.bool.default_won_and_reloaded);
         DEFAULT_MOVED_FIRST_CARD = res.getBoolean(R.bool.default_moved_first_card);
         DEFAULT_4_COLOR_MODE = res.getBoolean(R.bool.default_4_color_mode);
+        DEFAULT_VEGAS_MONEY_ENABLED = res.getBoolean(R.bool.default_vegas_money_enabled);
         DEFAULT_CARD_BACKGROUND = res.getInteger(R.integer.default_card_background);
         DEFAULT_CARD_BACKGROUND_COLOR = res.getInteger(R.integer.default_card_background_color);
         DEFAULT_WINNING_TIME = res.getInteger(R.integer.default_winning_time);
@@ -329,6 +337,7 @@ public class SharedData {
         DEFAULT_KLONDIKE_DRAW = res.getStringArray(R.array.pref_draw_values)[0];
         DEFAULT_VEGAS_DRAW = res.getStringArray(R.array.pref_draw_values)[1];
         DEFAULT_CANFIELD_DRAW = res.getStringArray(R.array.pref_draw_values)[1];
+        DEFAULT_VEGAS_MONEY = res.getInteger(R.integer.default_vegas_money);
 
         GAME_REDEAL_COUNT = res.getString(R.string.game_recycle_count);
         GAME_WON = res.getString(R.string.game_won);
@@ -649,6 +658,16 @@ public class SharedData {
     }
 
     /**
+     * Gets data for shared data (same for every game)
+     *
+     * @param name         The name in the shared pref
+     * @param defaultValue The default to apply, if not found
+     */
+    public static long getSharedLong(String name, long defaultValue) {
+        return savedSharedData.getLong(name, defaultValue);
+    }
+
+    /**
      * Saves shared data (same for every game)
      *
      * @param name  The name in the shared pref
@@ -656,6 +675,16 @@ public class SharedData {
      */
     public static void putSharedInt(String name, int value) {
         savedSharedData.edit().putInt(name, value).apply();
+    }
+
+    /**
+     * Saves shared data (same for every game)
+     *
+     * @param name  The name in the shared pref
+     * @param value The value to save
+     */
+    public static void putSharedLong(String name, long value) {
+        savedSharedData.edit().putLong(name, value).apply();
     }
 
     /**

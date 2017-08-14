@@ -124,8 +124,18 @@ public class Scores {
      * @param points The points to add
      */
     public void update(int points) {
-        if (gameLogic.hasWon())
+        update((long) points);
+    }
+
+    /**
+     * Updates the current score, but only if the game hasn't been won.
+     *
+     * @param points The points to add
+     */
+    public void update(long points) {
+        if (gameLogic.hasWon()) {
             return;
+        }
 
         score += points;
         output();
@@ -166,20 +176,24 @@ public class Scores {
 
     /**
      * Adds a new high score to the list. New score will be inserted at the last position
-     * and moved left until it is in the right position
+     * and moved left until it is in the right position. Normally, the version without parameters
+     * will be called, but for Vegas I also need a version where I can set the score and time
+     * by myself
+     *
+     * @param newScore  The score to add
+     * @param timeTaken  The time how long the game took
      */
-    public void addNewHighScore() {
+    public void addNewHighScore(long newScore, long timeTaken){
+        currentGame.processScore(newScore);
 
-        currentGame.processScore(score);
-
-        if (score < 0)
+        if (newScore < 0)
             return;
 
         int index = MAX_SAVED_SCORES - 1;
 
         //if the new score is greater than the last saved one or the last one is empty, override it
-        if (score > savedScores[index][0] || savedScores[index][0] == 0) {
-            savedScores[index] = new long[]{score, timer.getCurrentTime(), System.currentTimeMillis()};
+        if (newScore > savedScores[index][0] || savedScores[index][0] == 0) {
+            savedScores[index] = new long[]{newScore, timeTaken, System.currentTimeMillis()};
 
             while (index > 0 && (savedScores[index - 1][0] == 0                                     //while the index is greater than 0 and the score before the index is empty
                     || savedScores[index - 1][0] < savedScores[index][0]                            //or the score at index is less than the score before it
@@ -194,6 +208,14 @@ public class Scores {
 
             saveHighScore();
         }
+    }
+
+    /**
+     * Adds a new high score to the list. New score will be inserted at the last position
+     * and moved left until it is in the right position
+     */
+    public void addNewHighScore() {
+        addNewHighScore(score,timer.getCurrentTime());
     }
 
     /**
@@ -251,5 +273,10 @@ public class Scores {
                         gm.getString(R.string.game_score), score, dollar));
             }
         });
+    }
+
+
+    public long getCurrentScore(){
+        return score;
     }
 }

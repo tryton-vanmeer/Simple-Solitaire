@@ -98,4 +98,10 @@
     <string name="settings_auto_start_new_game_title">Start a new game when won</string>
     <string name="settings_auto_start_new_game_text">If returned to an already won game, automatically start a new game</string>
 
+    <string name="settings_vegas_money_enabled">Keep the current balance</string>
+    <string name="settings_vegas_money_enabled_text">The balance will be transferred to following deals of Vegas, but you need to reset the balance for saving the current high-score</string>
+    <string name="settings_vegas_money_reset">Reset balance</string>
+    <string name="settings_vegas_money_reset_text">The next Vegas deal will start with 0$</string>
+    <string name="settings_vegas_money_reset_confirm">Do you really want to reset your balance? This can\'t be reverted.</string>
+
 </resources>
